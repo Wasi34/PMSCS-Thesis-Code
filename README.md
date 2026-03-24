@@ -1,25 +1,4 @@
-# Chain-of-Thought QA — Bengali SQuAD
-
-Bengali SQuAD question-answering using **Chain-of-Thought (CoT) prompting** across 3 LLMs.
-
-## Project Structure
-
-```
-chain_of_thought_qa/
-├── gpt4omini.py          # GPT-4o mini (OpenAI API)
-├── gemini25pro.py        # Gemini 2.5 Pro (Google GenAI API)
-├── llama3_groq.py        # LLaMA 3.3 70B (Groq API)
-├── evaluate_accuracy.py  # Accuracy evaluation (Exact Match + Partial Match)
-├── .env.example          # API key template
-├── requirements.txt      # Python dependencies
-└── outputs/
-    ├── gpt4omini/        → results.json
-    ├── gemini25pro/      → results.json
-    ├── llama3_groq/      → results.json
-    └── evaluation_summary.json
-```
-
-## Setup
+# Setup
 
 ```bash
 # 1. Install dependencies
@@ -30,7 +9,7 @@ cp .env.example .env
 # Edit .env and add your keys
 ```
 
-## Running the Scripts
+# Running the Scripts
 
 ```bash
 # Test with 10 rows (default)
@@ -44,7 +23,7 @@ python gemini25pro.py --rows 50
 python llama3_groq.py --rows 50
 ```
 
-## Evaluating Accuracy
+# Evaluating Accuracy
 
 ```bash
 # Evaluate all models
@@ -56,7 +35,7 @@ python evaluate_accuracy.py --model gemini25pro
 python evaluate_accuracy.py --model llama3_groq
 ```
 
-## Output Format (`results.json`)
+# Output Format (`results.json`)
 
 Each row in the output JSON contains:
 
@@ -72,7 +51,7 @@ Each row in the output JSON contains:
 }
 ```
 
-## Chain-of-Thought Prompt Design
+# Chain-of-Thought Prompt Design
 
 All models use the same 4-step CoT system prompt:
 
@@ -83,7 +62,7 @@ All models use the same 4-step CoT system prompt:
 
 The model responds in structured JSON: `{ "reasoning": "...", "answer": "..." }`
 
-## Dataset
+# Dataset
 
 - **Source**: `squad_bn - Test.csv` (Bengali SQuAD Test split, ~4300 rows)
 - **Columns**: `Title`, `Context`, `Question`, `Answer_Text`
