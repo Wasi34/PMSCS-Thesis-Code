@@ -63,7 +63,7 @@ All models use the same 4-step CoT system prompt:
 The model responds in structured JSON: `{ "reasoning": "...", "answer": "..." }`
 
 # Dataset
-
+Original dataset link: https://huggingface.co/datasets/csebuetnlp/squad_bn
 - **Source**: `squad_bn - Test.csv` (Bengali SQuAD Test split, ~4300 rows)
 - **Columns**: `Title`, `Context`, `Question`, `Answer_Text`
 - Note: Some rows have empty `Answer_Text` — these are skipped during accuracy evaluation
