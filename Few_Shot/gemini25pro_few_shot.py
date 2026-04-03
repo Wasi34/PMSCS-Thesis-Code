@@ -1,7 +1,7 @@
 """
 gemini25pro_few_shot.py
 -----------------------
-Few-Shot Question Answering on Bengali SQuAD using Gemini 2.0 Flash.
+Few-Shot Question Answering on Bengali SQuAD using Gemini 2.5 Pro.
 
 In few-shot mode the model receives 3 labelled Bengali QA examples in the
 prompt, guiding it to the desired output format without explicit chain-of-thought
@@ -32,7 +32,7 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env"))
 DATASET_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "squad_bn - Test.csv")
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "outputs", "gemini25pro")
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "few_shot_results.json")
-MODEL = "gemini-2.0-flash"
+MODEL = "gemini-2.5-pro"
 
 # ── Few-Shot System Prompt ─────────────────────────────────────────────────────
 SYSTEM_PROMPT = """You are a question-answering assistant for Bengali text.
@@ -98,7 +98,7 @@ def build_few_shot_prompt(context: str, question: str) -> str:
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Few-Shot QA using Gemini 2.0 Flash on Bengali SQuAD"
+        description="Few-Shot QA using Gemini 2.5 Pro on Bengali SQuAD"
     )
     parser.add_argument(
         "--rows",
