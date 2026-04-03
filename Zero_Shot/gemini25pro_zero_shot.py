@@ -1,7 +1,7 @@
 """
 gemini25pro_zero_shot.py
 ------------------------
-Zero-Shot Question Answering on Bengali SQuAD using Gemini 2.0 Flash.
+Zero-Shot Question Answering on Bengali SQuAD using Gemini 2.5 Pro.
 
 In zero-shot mode the model receives NO examples and NO explicit reasoning
 instructions — it must answer purely from its pretrained knowledge and the
@@ -32,7 +32,7 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env"))
 DATASET_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "squad_bn - Test.csv")
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "outputs", "gemini25pro")
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "zero_shot_results.json")
-MODEL = "gemini-2.0-flash"
+MODEL = "gemini-2.5-pro"
 
 # ── Zero-Shot System Prompt ────────────────────────────────────────────────────
 SYSTEM_PROMPT = """You are a question-answering assistant for Bengali text.
@@ -59,7 +59,7 @@ Answer:"""
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Zero-Shot QA using Gemini 2.0 Flash on Bengali SQuAD"
+        description="Zero-Shot QA using Gemini 2.5 Pro on Bengali SQuAD"
     )
     parser.add_argument(
         "--rows",
