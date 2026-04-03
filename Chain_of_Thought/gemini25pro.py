@@ -28,7 +28,7 @@ load_dotenv()
 DATASET_PATH = os.path.join(os.path.dirname(__file__), "..", "squad_bn - Test.csv")
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "outputs", "gemini25pro")
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "results.json")
-MODEL = "gemini-2.5-pro"  # gemini-2.5-pro requires paid tier; using gemini-2.0-flash (free tier compatible)
+MODEL = "gemini-2.5-pro"  # gemini-2.5-pro requires paid tier; using gemini-2.5-pro (free tier compatible)
 
 # ── CoT System Prompt ──────────────────────────────────────────────────────────
 SYSTEM_PROMPT = """You are an expert question-answering assistant specializing in Bengali text.
