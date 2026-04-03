@@ -1,17 +1,17 @@
 """
-gpt4omini_few_shot.py
+gpt4o_few_shot.py
 ---------------------
-Few-Shot Question Answering on Bengali SQuAD using GPT-4o mini.
+Few-Shot Question Answering on Bengali SQuAD using GPT-4o.
 
 In few-shot mode the model receives 3 labelled Bengali QA examples in the
 prompt, guiding it to the desired output format without explicit chain-of-thought
 reasoning instructions.
 
 Usage:
-    python few_shot/gpt4omini_few_shot.py --rows 10
+    python few_shot/gpt4o_few_shot.py --rows 10
 
 Output:
-    outputs/gpt4omini/few_shot_results.json
+    outputs/gpt4o/few_shot_results.json
 """
 
 import argparse
@@ -28,9 +28,9 @@ from tqdm import tqdm
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 DATASET_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "squad_bn - Test.csv")
-OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "outputs", "gpt4omini")
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "outputs", "gpt4o")
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "few_shot_results.json")
-MODEL = "gpt-4o-mini"
+MODEL = "gpt-4o"
 
 # ── Few-Shot System Prompt ─────────────────────────────────────────────────────
 SYSTEM_PROMPT = """You are a question-answering assistant for Bengali text.
@@ -104,7 +104,7 @@ def build_messages(context: str, question: str) -> list:
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Few-Shot QA using GPT-4o mini on Bengali SQuAD"
+        description="Few-Shot QA using GPT-4o on Bengali SQuAD"
     )
     parser.add_argument(
         "--rows",
@@ -128,7 +128,7 @@ def load_dataset(n_rows: int) -> pd.DataFrame:
 
 
 def query_gpt(client: OpenAI, context: str, question: str) -> dict:
-    """Send a few-shot chat prompt to GPT-4o mini and return parsed JSON response."""
+    """Send a few-shot chat prompt to GPT-4o and return parsed JSON response."""
     messages = build_messages(context, question)
 
     response = client.chat.completions.create(
