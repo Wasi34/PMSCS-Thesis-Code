@@ -22,7 +22,7 @@ python llama3_groq.py --rows 50
 python evaluate_accuracy.py
 
 # Evaluate a specific model
-python evaluate_accuracy.py --model gpt4omini
+python evaluate_accuracy.py --model gpt4o
 python evaluate_accuracy.py --model gemini25pro
 python evaluate_accuracy.py --model llama3_groq
 ```
