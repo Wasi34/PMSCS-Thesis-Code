@@ -1,17 +1,17 @@
 """
-gpt4omini_zero_shot.py
+gpt4o_zero_shot.py
 ----------------------
-Zero-Shot Question Answering on Bengali SQuAD using GPT-4o mini.
+Zero-Shot Question Answering on Bengali SQuAD using GPT-4o.
 
 In zero-shot mode the model receives NO examples and NO explicit reasoning
 instructions — it must answer purely from its pretrained knowledge and the
 provided context, with only a minimal system instruction.
 
 Usage:
-    python zero_shot/gpt4omini_zero_shot.py --rows 10
+    python zero_shot/gpt4o_zero_shot.py --rows 10
 
 Output:
-    outputs/gpt4omini/zero_shot_results.json
+    outputs/gpt4o/zero_shot_results.json
 """
 
 import argparse
@@ -28,9 +28,9 @@ from tqdm import tqdm
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 DATASET_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "squad_bn - Test.csv")
-OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "outputs", "gpt4omini")
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "outputs", "gpt4o")
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "zero_shot_results.json")
-MODEL = "gpt-4o-mini"
+MODEL = "gpt-4o"
 
 # ── Zero-Shot System Prompt ────────────────────────────────────────────────────
 SYSTEM_PROMPT = """You are a question-answering assistant for Bengali text.
@@ -57,7 +57,7 @@ Answer:"""
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Zero-Shot QA using GPT-4o mini on Bengali SQuAD"
+        description="Zero-Shot QA using GPT-4o on Bengali SQuAD"
     )
     parser.add_argument(
         "--rows",
@@ -81,7 +81,7 @@ def load_dataset(n_rows: int) -> pd.DataFrame:
 
 
 def query_gpt(client: OpenAI, context: str, question: str) -> dict:
-    """Send a zero-shot prompt to GPT-4o mini and return parsed JSON response."""
+    """Send a zero-shot prompt to GPT-4o and return parsed JSON response."""
     user_message = USER_PROMPT_TEMPLATE.format(context=context, question=question)
 
     response = client.chat.completions.create(
