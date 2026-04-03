@@ -9,7 +9,6 @@ Usage:
 Output:
     outputs/gpt4o/results.json
 """
-
 import argparse
 import json
 import os
