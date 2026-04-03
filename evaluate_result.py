@@ -16,7 +16,7 @@ import json
 import os
 import re
 from collections import Counter
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 
 MODELS = ["gpt4o", "gemini25pro", "llama3"]
@@ -47,21 +47,35 @@ def partial_match(predicted: str, expected: str) -> bool:
     return exp_norm in pred_norm or pred_norm in exp_norm
 
 
-def precision_recall_f1(predicted: str, expected: str) -> Tuple[float, float, float]:
+def Result(predicted: str, expected: str) -> Dict[str, float]:
     """
-    Compute token-level precision, recall, and F1.
+    Compute accuracy, precision, recall, and F1 together for one prediction.
 
-    Precision = overlap / predicted_tokens
-    Recall    = overlap / expected_tokens
-    F1        = 2PR / (P + R)
+    accuracy  = 1 if exact match else 0
+    precision = overlap / predicted_tokens
+    recall    = overlap / expected_tokens
+    f1        = 2PR / (P + R)
     """
+    accuracy = 1.0 if exact_match(predicted, expected) else 0.0
+
     pred_tokens = tokenize(predicted)
     exp_tokens = tokenize(expected)
 
     if not exp_tokens and not pred_tokens:
-        return 1.0, 1.0, 1.0
+        return {
+            "accuracy": accuracy,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1_score": 1.0,
+        }
+
     if not exp_tokens or not pred_tokens:
-        return 0.0, 0.0, 0.0
+        return {
+            "accuracy": accuracy,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+        }
 
     pred_counter = Counter(pred_tokens)
     exp_counter = Counter(exp_tokens)
@@ -70,13 +84,23 @@ def precision_recall_f1(predicted: str, expected: str) -> Tuple[float, float, fl
     num_same = sum(overlap.values())
 
     if num_same == 0:
-        return 0.0, 0.0, 0.0
+        return {
+            "accuracy": accuracy,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+        }
 
     precision = num_same / len(pred_tokens)
     recall = num_same / len(exp_tokens)
-    f1 = 2 * precision * recall / (precision + recall)
+    f1_score = 2 * precision * recall / (precision + recall)
 
-    return precision, recall, f1
+    return {
+        "accuracy": accuracy,
+        "precision": precision,
+        "recall": recall,
+        "f1_score": f1_score,
+    }
 
 
 def evaluate_model(model_name: str) -> Optional[Dict]:
@@ -96,6 +120,7 @@ def evaluate_model(model_name: str) -> Optional[Dict]:
 
     em_correct = 0
     partial_correct = 0
+    accuracy_sum = 0.0
     precision_sum = 0.0
     recall_sum = 0.0
     f1_sum = 0.0
@@ -110,14 +135,15 @@ def evaluate_model(model_name: str) -> Optional[Dict]:
         if partial_match(predicted, expected):
             partial_correct += 1
 
-        precision, recall, f1 = precision_recall_f1(predicted, expected)
-        precision_sum += precision
-        recall_sum += recall
-        f1_sum += f1
+        result = Result(predicted, expected)
+        accuracy_sum += result["accuracy"]
+        precision_sum += result["precision"]
+        recall_sum += result["recall"]
+        f1_sum += result["f1_score"]
 
     n = len(evaluable)
 
-    accuracy = (em_correct / n * 100) if n else 0.0
+    accuracy = (accuracy_sum / n * 100) if n else 0.0
     partial_accuracy = (partial_correct / n * 100) if n else 0.0
     avg_precision = (precision_sum / n * 100) if n else 0.0
     avg_recall = (recall_sum / n * 100) if n else 0.0
