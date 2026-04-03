@@ -1,5 +1,4 @@
 # Setup
-
 ```bash
 # 1. Install dependencies
 pip install -r requirements.txt
@@ -10,21 +9,14 @@ cp .env.example .env
 ```
 
 # Running the Scripts
-
 ```bash
-# Test with 10 rows (default)
-python gpt4omini.py
-python gemini25pro.py
-python llama3_groq.py
-
 # Specify number of rows
-python gpt4omini.py --rows 50
+python gpt4o.py --rows 50
 python gemini25pro.py --rows 50
 python llama3_groq.py --rows 50
 ```
 
 # Evaluating Accuracy
-
 ```bash
 # Evaluate all models
 python evaluate_accuracy.py
@@ -64,6 +56,4 @@ The model responds in structured JSON: `{ "reasoning": "...", "answer": "..." }`
 
 # Dataset
 Original dataset link: https://huggingface.co/datasets/csebuetnlp/squad_bn
-- **Source**: `squad_bn - Test.csv` (Bengali SQuAD Test split, ~4300 rows)
-- **Columns**: `Title`, `Context`, `Question`, `Answer_Text`
 - Note: Some rows have empty `Answer_Text` — these are skipped during accuracy evaluation
