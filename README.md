@@ -34,7 +34,7 @@ Each row in the output JSON contains:
 ```json
 {
   "id": 1,
-  "title": "শেখ মুজিবুর রহমান",
+  "title": "<A title>",
   "context": "<Bengali passage>",
   "question": "<Bengali question>",
   "expected_answer": "<ground truth>",
