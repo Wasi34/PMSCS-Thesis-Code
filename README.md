@@ -56,4 +56,3 @@ The model responds in structured JSON: `{ "reasoning": "...", "answer": "..." }`
 
 # Dataset
 Original dataset link: https://huggingface.co/datasets/csebuetnlp/squad_bn
-- Note: Some rows have empty `Answer_Text` — these are skipped during accuracy evaluation
