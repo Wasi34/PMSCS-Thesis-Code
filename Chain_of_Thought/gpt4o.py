@@ -1,13 +1,13 @@
 """
-gpt4omini.py
+gpt4o.py
 ------------
-Chain-of-Thought (CoT) Question Answering on Bengali SQuAD using GPT-4o mini.
+Chain-of-Thought (CoT) Question Answering on Bengali SQuAD using GPT-4o.
 
 Usage:
-    python gpt4omini.py --rows 10
+    python gpt4o.py --rows 10
 
 Output:
-    outputs/gpt4omini/results.json
+    outputs/gpt4o/results.json
 """
 
 import argparse
@@ -24,9 +24,9 @@ from tqdm import tqdm
 load_dotenv()
 
 DATASET_PATH = os.path.join(os.path.dirname(__file__), "..", "squad_bn - Test.csv")
-OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "outputs", "gpt4omini")
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "outputs", "gpt4o ")
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "results.json")
-MODEL = "gpt-4o-mini"
+MODEL = "gpt-4o"
 
 # ── CoT System Prompt ──────────────────────────────────────────────────────────
 SYSTEM_PROMPT = """You are an expert question-answering assistant specializing in Bengali text.
@@ -57,7 +57,7 @@ Please answer the question following the chain-of-thought steps."""
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Chain-of-Thought QA using GPT-4o mini on Bengali SQuAD"
+        description="Chain-of-Thought QA using GPT-4o on Bengali SQuAD"
     )
     parser.add_argument(
         "--rows",
@@ -81,7 +81,7 @@ def load_dataset(n_rows: int) -> pd.DataFrame:
 
 
 def query_gpt(client: OpenAI, context: str, question: str) -> dict:
-    """Send a CoT prompt to GPT-4o mini and return parsed JSON response."""
+    """Send a CoT prompt to GPT-4o   and return parsed JSON response."""
     user_message = USER_PROMPT_TEMPLATE.format(context=context, question=question)
 
     response = client.chat.completions.create(
@@ -90,7 +90,7 @@ def query_gpt(client: OpenAI, context: str, question: str) -> dict:
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": user_message},
         ],
-        temperature=0.0,  # Deterministic for QA tasks
+        temperature=0.0,  # Deter stic for QA tasks
         response_format={"type": "json_object"},
     )
 
