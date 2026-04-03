@@ -2,7 +2,6 @@
 gemini25pro_few_shot.py
 -----------------------
 Few-Shot Question Answering on Bengali SQuAD using Gemini 2.5 Pro.
-
 In few-shot mode the model receives 3 labelled Bengali QA examples in the
 prompt, guiding it to the desired output format without explicit chain-of-thought
 reasoning instructions.
