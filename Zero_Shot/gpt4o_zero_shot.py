@@ -2,7 +2,6 @@
 gpt4o_zero_shot.py
 ----------------------
 Zero-Shot Question Answering on Bengali SQuAD using GPT-4o.
-
 In zero-shot mode the model receives NO examples and NO explicit reasoning
 instructions — it must answer purely from its pretrained knowledge and the
 provided context, with only a minimal system instruction.
