@@ -16,15 +16,15 @@ python gemini25pro.py --rows 50
 python llama3_groq.py --rows 50
 ```
 
-# Evaluating Accuracy
+# Evaluating Result
 ```bash
 # Evaluate all models
-python evaluate_accuracy.py
+python evaluate_result.py
 
 # Evaluate a specific model
-python evaluate_accuracy.py --model gpt4o
-python evaluate_accuracy.py --model gemini25pro
-python evaluate_accuracy.py --model llama3_groq
+python evaluate_result.py --model gpt4o
+python evaluate_result.py --model gemini25pro
+python evaluate_result.py --model llama3_groq
 ```
 
 # Output Format (`results.json`)
